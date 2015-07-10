@@ -234,49 +234,49 @@
             </plugin>
         </plugins>
         <pluginManagement>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <!-- Default configuration for all reports -->
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <linksource>true</linksource>
-                    <quiet>true</quiet>
-                    <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
-                                    <code>build: yworks-uml-doclet ${maven.build.timestamp}</code>
-                                    ]]></bottom>
-                    <overview>src/main/java/overview.html</overview>
-                    <doclet>ydoc.doclets.YStandard</doclet>
-                    <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
-                    <additionalparam>-umlautogen</additionalparam>
-                    <additionalJOptions>
-                        <additionalJOption>-J-Xmx1g</additionalJOption>
-                        <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
-                    </additionalJOptions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadoc</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>aggregate</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
-                        <phase>site</phase>
-                        <configuration>
-                            <!-- Specific configuration for the aggregate report -->
-                            <stylesheetfile>stylesheet.css</stylesheetfile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>        
             <plugins>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-javadoc-plugin</artifactId>
+	                <version>${maven-javadoc-plugin.version}</version>
+	                <!-- Default configuration for all reports -->
+	                <configuration>
+	                    <encoding>UTF-8</encoding>
+	                    <linksource>true</linksource>
+	                    <quiet>true</quiet>
+	                    <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
+	                                    <code>build: yworks-uml-doclet ${maven.build.timestamp}</code>
+	                                    ]]></bottom>
+	                    <overview>src/main/java/overview.html</overview>
+	                    <doclet>ydoc.doclets.YStandard</doclet>
+	                    <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
+	                    <additionalparam>-umlautogen</additionalparam>
+	                    <additionalJOptions>
+	                        <additionalJOption>-J-Xmx1g</additionalJOption>
+	                        <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
+	                    </additionalJOptions>
+	                </configuration>
+	                <executions>
+	                    <execution>
+	                        <id>attach-javadoc</id>
+	                        <phase>verify</phase>
+	                        <goals>
+	                            <goal>jar</goal>
+	                        </goals>
+	                    </execution>
+	                    <execution>
+	                        <id>aggregate</id>
+	                        <goals>
+	                            <goal>aggregate</goal>
+	                        </goals>
+	                        <phase>site</phase>
+	                        <configuration>
+	                            <!-- Specific configuration for the aggregate report -->
+	                            <stylesheetfile>stylesheet.css</stylesheetfile>
+	                        </configuration>
+	                    </execution>
+	                </executions>
+	            </plugin>        
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
