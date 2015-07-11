@@ -1,8 +1,8 @@
 dans-parent
 ===========
 
-DANS Parent POM and supporting resources. DANS Maven projects should use this as their parent project (directly or indirectly), 
-like this (be sure to use the latest version):
+DANS Parent POM and supporting resources. DANS Maven projects should use ``dans-prototype`` as their parent project (directly or
+indirectly), like this (be sure to use the latest version):
 
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
