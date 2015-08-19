@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS (Java/Scala) Project Protoype</name>
-    <version>1.12</version>
+    <version>1.1333</version>
     <packaging>pom</packaging>
     <properties>
         <!-- General properties -->
