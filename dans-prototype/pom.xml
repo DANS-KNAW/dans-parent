@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS (Java/Scala) Project Protoype</name>
-    <version>1.13</version>
+    <version>1.14</version>
     <packaging>pom</packaging>
     <properties>
         <!-- General properties -->
@@ -16,10 +16,10 @@
         <!-- Plug-in versions -->
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-java-formatter-plugin.version>0.4</maven-java-formatter-plugin.version>
         <maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
         <maven-site-plugin.version>3.3</maven-site-plugin.version>
@@ -319,7 +319,7 @@
                         <scalaCompatVersion>${scala.binary.version}</scalaCompatVersion>
                         <scalaVersion>${scala.version}</scalaVersion>
                         <args>
-                            <arg>-target:jvm-1.7</arg>
+                            <arg>-target:jvm-1.8</arg>
                         </args>
                     </configuration>
                 </plugin>
@@ -489,25 +489,6 @@
                                     </pluginExecutionFilter>
                                     <action>
                                         <ignore />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.jibx</groupId>
-                                        <artifactId>
-                                            maven-jibx-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.1.6a,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>bind</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>true</runOnIncremental>
-                                        </execute>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
