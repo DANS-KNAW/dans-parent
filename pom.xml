@@ -9,11 +9,7 @@
 	<modules>
 		<module>dans-build-resources</module>
 		<module>dans-prototype</module>
+        <module>dans-java-prototype</module>
+        <module>dans-scala-prototype</module>
 	</modules>
-	<repositories>
-		<repository>
-			<id>DANS Maven Repository</id>
-			<url>http://maven-repo.dans.knaw.nl/repo</url>
-		</repository>
-	</repositories>
 </project>
