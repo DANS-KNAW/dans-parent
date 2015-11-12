@@ -322,7 +322,7 @@
                 <version>${maven-dependency-plugin.version}</version>
                 <executions>
                     <execution>
-                        <phase>clean</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
