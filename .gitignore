@@ -10,5 +10,6 @@ buildNumber.properties
 /.settings/
 /.DS_Store
 /*.iml
+/*/*.iml
 /.idea
 /*/.idea
