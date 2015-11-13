@@ -407,6 +407,7 @@
                         <scalaVersion>${scala.version}</scalaVersion>
                         <args>
                             <arg>-target:jvm-1.8</arg>
+                            <arg>-deprecation</arg>
                         </args>
                     </configuration>
                 </plugin>
