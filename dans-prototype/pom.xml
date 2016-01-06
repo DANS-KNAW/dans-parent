@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.16</version>
+    <version>1.17</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -29,6 +29,7 @@
         <maven-jibx-plugin.version>1.2.5</maven-jibx-plugin.version>
         <aspectj-maven-plugin.version>1.4</aspectj-maven-plugin.version>
         <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+        <license-maven-plugin.version>2.11</license-maven-plugin.version>
         <!--
             According to mvnrepository.com the eclipse branch of jetty is the "current" one.
             However the jetty-runner of the eclipse branch does not seem to work very well
@@ -359,6 +360,32 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${license-maven-plugin.version}</version>
+                    <configuration>
+                        <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
+                        <properties>
+                            <owner>DANS</owner>
+                            <email>info@dans.knaw.nl</email>
+                        </properties>
+                        <excludes>
+                            <exclude>LICENSE</exclude>
+                            <exclude>**/README</exclude>
+                            <exclude>src/test/resources/**</exclude>
+                            <exclude>src/site/resources/**</exclude>
+                            <exclude>src/main/resources/**</exclude>
+                            <exclude>src/main/assembly/dist/**</exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>process-sources</phase>
+                            <goals><goal>check</goal></goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
