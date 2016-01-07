@@ -367,7 +367,7 @@
                     <configuration>
                         <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
                         <properties>
-                            <owner>DANS</owner>
+                            <owner>DANS - Data Archiving and Networked Services</owner>
                             <email>info@dans.knaw.nl</email>
                         </properties>
                         <excludes>
