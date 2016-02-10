@@ -58,7 +58,7 @@
         <scala.binary.version>2.11</scala.binary.version>
         <scala-maven-plugin.version>3.2.0</scala-maven-plugin.version>
         <scallop.version>0.9.5</scallop.version>
-        <scalarx.version>0.24.1</scalarx.version>
+        <scalarx.version>0.26.0</scalarx.version>
         <scala-xml.version>1.0.5</scala-xml.version>
         <scalaj.version>1.1.4</scalaj.version>
         <scala-test.version>2.2.1</scala-test.version>
