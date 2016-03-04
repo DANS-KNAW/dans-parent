@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.22</version>
+    <version>1.23</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -69,7 +69,7 @@
         <joda-time.version>2.7</joda-time.version>
         <joda-convert.version>1.6</joda-convert.version>
         <yourmediashelf.version>0.7</yourmediashelf.version>
-        <bagit.version>4.9.0</bagit.version>
+        <bagit.version>4.11.0</bagit.version>
         <zip4j.version>1.3.2</zip4j.version>
         <jgit.version>4.1.0.201509280440-r</jgit.version>
         <config.version>1.2.1</config.version>
