@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.25</version>
+    <version>1.26</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -31,6 +31,7 @@
         <aspectj-maven-plugin.version>1.4</aspectj-maven-plugin.version>
         <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
         <license-maven-plugin.version>2.11</license-maven-plugin.version>
+        <artifactory-maven-plugin.version>2.4.1</artifactory-maven-plugin.version>
         <!--
             According to mvnrepository.com the eclipse branch of jetty is the "current" one.
             However the jetty-runner of the eclipse branch does not seem to work very well
@@ -367,6 +368,29 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.jfrog.buildinfo</groupId>
+                    <artifactId>artifactory-maven-plugin</artifactId>
+                    <version>${artifactory-maven-plugin.version}</version>
+                    <inherited>true</inherited>
+                    <executions>
+                        <execution>
+                            <id>build-info</id>
+                            <goals>
+                                <goal>publish</goal>
+                            </goals>
+                            <configuration>
+                                <publisher>
+                                    <contextUrl>http://maven-repo.dans.knaw.nl</contextUrl>
+                                    <username>{{ ARTIFACTORY_USER }}</username>
+                                    <password>{{ ARTIFACTORY_PW }}</password>
+                                    <repoKey>libs-release-local</repoKey>
+                                    <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+                                </publisher>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
