@@ -10,8 +10,6 @@ indirectly), like this (be sure to use the latest version):
         <version>1.11</version>
     </parent>
 
-Test
-
 Install
 =======
 
