@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.26</version>
+    <version>1.27</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -310,6 +310,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <url>http://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <resources>
             <resource>
