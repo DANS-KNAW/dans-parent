@@ -12,4 +12,4 @@ fixes EASY-
 #### related pull requests on github
 repo                       | PR                | note
 -------------------------- | ----------------- | ----
-easy-                      | [PR#](PRlink)     | note
+easy-                      | [PR#](PRlink)     | 
