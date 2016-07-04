@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.27</version>
+    <version>1.28</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -64,6 +64,7 @@
         <scalarx.version>0.26.0</scalarx.version>
         <scala-xml.version>1.0.5</scala-xml.version>
         <scalaj.version>1.1.4</scalaj.version>
+        <scala-arm.version>2.0.0-M1</scala-arm.version>
         <scala-test.version>2.2.1</scala-test.version>
         <scalatest-maven-plugin.version>1.0</scalatest-maven-plugin.version>
         <scalamock.version>3.2.1</scalamock.version>
@@ -239,6 +240,11 @@
                 <groupId>org.scala-lang.modules</groupId>
                 <artifactId>scala-xml_2.11</artifactId>
                 <version>${scala-xml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jsuereth</groupId>
+                <artifactId>scala-arm_2.11</artifactId>
+                <version>${scala-arm.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scalatest</groupId>
