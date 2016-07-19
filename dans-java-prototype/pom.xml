@@ -4,36 +4,18 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.28</version>
+        <version>1.29</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
     <artifactId>dans-java-prototype</artifactId>
     <name>DANS Java Project Prototype</name>
     <packaging>pom</packaging>
     <properties>
-        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-java-formatter-plugin.version>0.4</maven-java-formatter-plugin.version>
         <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
     </properties>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <!-- By default project.build.sourceEncoding is not used by the compiler plug-in and
-                         it defaults to ASCII, which messed up some unit tests that specifically used
-                         files with Greek letters in it. -->
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <excludes>
-                        <exclude>**/package.html</exclude>
-                        <exclude>**/overview.html</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
                 <artifactId>maven-java-formatter-plugin</artifactId>

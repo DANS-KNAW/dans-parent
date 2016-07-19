@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.28</version>
+    <version>1.29</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -15,6 +15,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
         <!-- Plug-in versions -->
+        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
         <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
         <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
@@ -340,6 +341,23 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!-- By default project.build.sourceEncoding is not used by the compiler plug-in and
+                         it defaults to ASCII, which messed up some unit tests that specifically used
+                         files with Greek letters in it. -->
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <excludes>
+                        <exclude>**/package.html</exclude>
+                        <exclude>**/overview.html</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
