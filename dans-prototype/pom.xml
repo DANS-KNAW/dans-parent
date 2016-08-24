@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.31</version>
+    <version>1.32</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -67,6 +67,8 @@
         <scalaj.version>1.1.4</scalaj.version>
         <scala-arm.version>2.0-RC1</scala-arm.version>
         <scala-test.version>2.2.1</scala-test.version>
+        <scala-logging.version>3.4.0</scala-logging.version>
+        <sourcecode.version>0.1.1</sourcecode.version>
         <scalatest-maven-plugin.version>1.0</scalatest-maven-plugin.version>
         <scalamock.version>3.2.1</scalamock.version>
         <scalatra.version>2.3.0</scalatra.version>
@@ -279,6 +281,16 @@
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
                 <version>${config.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.typesafe.scala-logging</groupId>
+                <artifactId>scala-logging_2.11</artifactId>
+                <version>${scala-logging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lihaoyi</groupId>
+                <artifactId>sourcecode_2.11</artifactId>
+                <version>${sourcecode.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.yourmediashelf.fedora.client</groupId>
@@ -510,6 +522,7 @@
                             <goals>
                                 <goal>compile</goal>
                                 <goal>testCompile</goal>
+                                <goal>doc-jar</goal>
                             </goals>
                         </execution>
                     </executions>
