@@ -58,6 +58,7 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <commons-csv.version>1.1</commons-csv.version>
         <commons-daemon.version>1.0.15</commons-daemon.version>
+        <dans-scala-lib>1.0</dans-scala-lib>
         <scala.version>2.11.7</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
         <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
@@ -314,6 +315,11 @@
                 <groupId>commons-daemon</groupId>
                 <artifactId>commons-daemon</artifactId>
                 <version>${commons-daemon.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.knaw.dans.lib</groupId>
+                <artifactId>dans-scala-lib</artifactId>
+                <version>${dans-scala-lib}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
