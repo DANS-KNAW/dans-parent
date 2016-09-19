@@ -83,6 +83,9 @@
         <config.version>1.2.1</config.version>
         <postgresql.version>9.4-1205-jdbc42</postgresql.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
+        <hazelcast.version>3.7.1</hazelcast.version>
+        <hazelcast.scala.version>3.6.1</hazelcast.scala.version>
+        <json4s.version>3.4.0</json4s.version>
     </properties>
     <prerequisites>
         <maven>3.0.3</maven>
@@ -333,6 +336,31 @@
                 <artifactId>dans-scala-lib</artifactId>
                 <version>${dans-scala-lib}</version>
             </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-client</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-scala_2.11</artifactId>
+                <version>${hazelcast.scala.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json4s</groupId>
+                <artifactId>json4s-native_2.11</artifactId>
+                <version>${json4s.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json4s</groupId>
+                <artifactId>json4s-ext_2.11</artifactId>
+                <version>${json4s.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <pluginRepositories>
@@ -344,6 +372,15 @@
             <url>http://jcenter.bintray.com/</url>
         </pluginRepository>
     </pluginRepositories>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
     <reporting>
         <plugins>
             <plugin>
