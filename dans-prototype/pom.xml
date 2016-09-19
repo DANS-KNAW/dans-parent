@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.32</version>
+    <version>1.33</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -58,6 +58,7 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <commons-csv.version>1.1</commons-csv.version>
         <commons-daemon.version>1.0.15</commons-daemon.version>
+        <dans-scala-lib>1.0</dans-scala-lib>
         <scala.version>2.11.7</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
         <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
@@ -82,6 +83,9 @@
         <config.version>1.2.1</config.version>
         <postgresql.version>9.4-1205-jdbc42</postgresql.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
+        <hazelcast.version>3.7.1</hazelcast.version>
+        <hazelcast.scala.version>3.6.1</hazelcast.scala.version>
+        <json4s.version>3.4.0</json4s.version>
     </properties>
     <prerequisites>
         <maven>3.0.3</maven>
@@ -327,6 +331,43 @@
                 <artifactId>commons-daemon</artifactId>
                 <version>${commons-daemon.version}</version>
             </dependency>
+            <dependency>
+                <groupId>nl.knaw.dans.lib</groupId>
+                <artifactId>dans-scala-lib</artifactId>
+                <version>${dans-scala-lib}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+                <classifier>tests</classifier>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-client</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast-scala_2.11</artifactId>
+                <version>${hazelcast.scala.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json4s</groupId>
+                <artifactId>json4s-native_2.11</artifactId>
+                <version>${json4s.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json4s</groupId>
+                <artifactId>json4s-ext_2.11</artifactId>
+                <version>${json4s.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <pluginRepositories>
@@ -338,6 +379,15 @@
             <url>http://jcenter.bintray.com/</url>
         </pluginRepository>
     </pluginRepositories>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
     <reporting>
         <plugins>
             <plugin>
