@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.33</version>
+    <version>1.34</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -516,6 +516,9 @@
                             <exclude>src/main/resources/**</exclude>
                             <exclude>src/main/assembly/dist/**</exclude>
                         </excludes>
+                        <mapping>
+                            <graphml>XML_STYLE</graphml>
+                        </mapping>
                     </configuration>
                     <executions>
                         <execution>
