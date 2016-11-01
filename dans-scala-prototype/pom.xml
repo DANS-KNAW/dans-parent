@@ -3,11 +3,10 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.33</version>
+        <version>1.34</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-scala-prototype</artifactId>
     <name>DANS Scala Project Protoype</name>
     <packaging>pom</packaging>
