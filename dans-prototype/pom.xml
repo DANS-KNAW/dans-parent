@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.35</version>
+    <version>1.36</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -508,8 +508,8 @@
                         <excludes>
                             <exclude>LICENSE</exclude>
                             <exclude>**/README</exclude>
-                            <exclude>*.sc</exclude>
-                            <exclude>*.graphml</exclude>
+                            <exclude>**/*.sc</exclude>
+                            <exclude>**/*.graphml</exclude>
                             <exclude>home/</exclude>
                             <exclude>apphome.sh</exclude>
                             <exclude>src/test/resources/**</exclude>
