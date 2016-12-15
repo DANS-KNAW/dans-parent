@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.36</version>
+    <version>1.37</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -511,6 +511,7 @@
                             <exclude>**/*.sc</exclude>
                             <exclude>**/*.graphml</exclude>
                             <exclude>home/</exclude>
+                            <exclude>out/</exclude>
                             <exclude>apphome.sh</exclude>
                             <exclude>src/test/resources/**</exclude>
                             <exclude>src/site/resources/**</exclude>
