@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.37</version>
+    <version>1.38</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -512,6 +512,10 @@
                             <exclude>**/*.graphml</exclude>
                             <exclude>home/</exclude>
                             <exclude>out/</exclude>
+                            <exclude>.vagrant/</exclude>
+                            <exclude>Vagrantfile</exclude>
+                            <exclude>**/hosts</exclude>
+                            <exclude>**/*.retry</exclude>
                             <exclude>apphome.sh</exclude>
                             <exclude>src/test/resources/**</exclude>
                             <exclude>src/site/resources/**</exclude>
