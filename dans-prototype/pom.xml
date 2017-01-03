@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.38</version>
+    <version>1.40</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -39,8 +39,11 @@
             (e.g. not Main-class attribute, problems with loggers). We'll keep using the
             Mortbay variant for now.
         -->
-        <jetty.version>9.3.5.v20151012</jetty.version>
-        <jetty-runner.version>8.1.16.v20140903</jetty-runner.version>
+        <jetty-mortbay.version>8.1.16.v20140903</jetty-mortbay.version>
+
+        <!-- We cannot use the newest 9.x version because jetty-ajp has no 9.x branch yet -->
+        <jetty.version>8.2.0.v20160908</jetty.version>
+
 
         <!-- Dependency versions -->
         <java.version>1.6</java.version>
@@ -316,10 +319,27 @@
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
+            <!-- Legacy version of jetty -->
             <dependency>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-runner</artifactId>
-                <version>${jetty-runner.version}</version>
+                <version>${jetty-mortbay.version}</version>
+            </dependency>
+            <!-- For new projects use the current version: -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-ajp</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlet</artifactId>
+                <version>${jetty.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -512,11 +532,14 @@
                             <exclude>**/*.graphml</exclude>
                             <exclude>home/</exclude>
                             <exclude>out/</exclude>
+                            <exclude>data/</exclude>
+                            <exclude>data-*/</exclude>
                             <exclude>.vagrant/</exclude>
                             <exclude>Vagrantfile</exclude>
                             <exclude>**/hosts</exclude>
                             <exclude>**/*.retry</exclude>
                             <exclude>apphome.sh</exclude>
+                            <exclude>**/*.template</exclude>
                             <exclude>src/test/resources/**</exclude>
                             <exclude>src/site/resources/**</exclude>
                             <exclude>src/main/resources/**</exclude>
