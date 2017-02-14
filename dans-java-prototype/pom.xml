@@ -4,7 +4,7 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.40</version>
+        <version>1.41</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
     <artifactId>dans-java-prototype</artifactId>
@@ -14,6 +14,12 @@
         <maven-java-formatter-plugin.version>0.4</maven-java-formatter-plugin.version>
         <maven-surefire-plugin.version>2.16</maven-surefire-plugin.version>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
