@@ -3,13 +3,16 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.43</version>
+        <version>1.44</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dans-scala-prototype</artifactId>
     <name>DANS Scala Project Protoype</name>
     <packaging>pom</packaging>
+    <properties>
+        <rpm-maven-plugin.version>2.1.5</rpm-maven-plugin.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
