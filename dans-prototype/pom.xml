@@ -417,6 +417,14 @@
                 <filtering>true</filtering>
             </resource>
             <resource>
+                <directory>src/main/assembly/dist/bin</directory>
+                <targetPath>${project.build.directory}/version</targetPath>
+                <includes>
+                    <include>version</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
             </resource>
@@ -771,11 +779,14 @@
                             </mapping>
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
+                                <filemode>444</filemode>
                                 <sources>
                                     <source>
                                         <location>src/main/assembly/dist/bin</location>
                                         <excludes>
                                             <exclude>${project.artifactId}</exclude>
+                                            <exclude>${project.artifactId}-service-start</exclude>
+                                            <exclude>version</exclude>
                                         </excludes>
                                     </source>
                                     <source>
@@ -785,8 +796,20 @@
                             </mapping>
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
+                                <filemode>444</filemode>
+                                <sources>
+                                    <source>
+                                        <location>${project.build.directory}/version/version</location>
+                                    </source>
+                                </sources>
+                            </mapping>
+                            <mapping>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
                                 <filemode>755</filemode>
                                 <sources>
+                                    <source>
+                                        <location>src/main/assembly/dist/bin/${project.artifactId}-service-start</location>
+                                    </source>
                                     <source>
                                         <location>src/main/assembly/dist/bin/${project.artifactId}</location>
                                     </source>
@@ -794,7 +817,7 @@
                             </mapping>
                             <mapping>
                                 <directory>/etc/opt/${dans-provider-name}/${project.artifactId}</directory>
-                                <configuration>true</configuration>
+                                <configuration>noreplace</configuration>
                                 <sources>
                                     <source>
                                         <location>src/main/assembly/dist/cfg</location>
