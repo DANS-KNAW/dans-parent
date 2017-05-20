@@ -4,10 +4,11 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.44</version>
+    <version>1.45</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
+        <dans-provider-name>dans.knaw.nl</dans-provider-name>
         <!-- General properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp><!-- wrapped system property 
@@ -751,8 +752,9 @@
                     <version>${rpm-maven-plugin.version}</version>
                     <configuration>
                         <group>Applications/Archiving</group>
-                        <vendor>DANS-KNAW</vendor>
-                        <packager>DANS-KNAW</packager>
+                        <vendor>${dans-provider-name}</vendor>
+                        <packager>${dans-provider-name}</packager>
+                        <name>${dans-provider-name}-${project.artifactId}</name>
                         <defaultUsername>${project.artifactId}</defaultUsername>
                         <defaultGroupname>${project.artifactId}</defaultGroupname>
                         <license>Apache 2.0</license>
@@ -764,7 +766,11 @@
                         </requires>
                         <mappings>
                             <mapping>
-                                <directory>/usr/local/dans/${project.artifactId}/bin</directory>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/lib</directory>
+                                <dependency />
+                            </mapping>
+                            <mapping>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
                                 <sources>
                                     <source>
                                         <location>src/main/assembly/dist/bin</location>
@@ -778,11 +784,7 @@
                                 </sources>
                             </mapping>
                             <mapping>
-                                <directory>/usr/local/dans/${project.artifactId}/lib</directory>
-                                <dependency />
-                            </mapping>
-                            <mapping>
-                                <directory>/usr/local/dans/${project.artifactId}/bin</directory>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
                                 <filemode>755</filemode>
                                 <sources>
                                     <source>
@@ -791,7 +793,7 @@
                                 </sources>
                             </mapping>
                             <mapping>
-                                <directory>/usr/local/etc/dans/${project.artifactId}</directory>
+                                <directory>/etc/opt/${dans-provider-name}/${project.artifactId}</directory>
                                 <configuration>true</configuration>
                                 <sources>
                                     <source>
@@ -800,28 +802,28 @@
                                 </sources>
                             </mapping>
                             <mapping>
-                                <directory>/usr/local/bin</directory>
+                                <directory>/opt/bin</directory>
                                 <sources>
                                     <softlinkSource>
-                                        <location>/usr/local/dans/${project.artifactId}/bin/${project.artifactId}</location>
+                                        <location>/opt/${dans-provider-name}/${project.artifactId}/bin/${project.artifactId}</location>
                                     </softlinkSource>
                                 </sources>
                             </mapping>
                         </mappings>
                         <preinstallScriptlet>
-                            <scriptFile>src/main/rpm/pre-install.sh</scriptFile>
+                            <scriptFile>src/main/rpm/1-pre-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preinstallScriptlet>
                         <postinstallScriptlet>
-                            <scriptFile>src/main/rpm/post-install.sh</scriptFile>
+                            <scriptFile>src/main/rpm/2-post-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postinstallScriptlet>
                         <preremoveScriptlet>
-                            <scriptFile>src/main/rpm/pre-remove.sh</scriptFile>
+                            <scriptFile>src/main/rpm/3-pre-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preremoveScriptlet>
                         <postremoveScriptlet>
-                            <scriptFile>src/main/rpm/post-remove.sh</scriptFile>
+                            <scriptFile>src/main/rpm/4-post-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postremoveScriptlet>
                     </configuration>
