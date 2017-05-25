@@ -545,6 +545,7 @@
                             <exclude>src/main/ansible/roles/**</exclude>
                             <exclude>src/main/ansible/ansible.cfg</exclude>
                             <exclude>src/main/ansible/*.repo</exclude>
+                            <exclude>.yum-repo/</exclude>
                         </excludes>
                     </configuration>
                     <executions>
