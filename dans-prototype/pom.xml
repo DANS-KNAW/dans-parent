@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
+        <rpm-release /><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
         <dans-provider-name>dans.knaw.nl</dans-provider-name>
         <!-- General properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -546,6 +547,7 @@
                             <exclude>src/main/ansible/ansible.cfg</exclude>
                             <exclude>src/main/ansible/*.repo</exclude>
                             <exclude>.yum-repo/</exclude>
+                            <exclude>*.pyc</exclude>
                         </excludes>
                     </configuration>
                     <executions>
@@ -590,7 +592,6 @@
                     <version>2.5.2</version>
                     <configuration>
                         <tagNameFormat>v@{project.version}</tagNameFormat>
-                        <developmentVersion>1.x-SNAPSHOT</developmentVersion>
                         <pushChanges>false</pushChanges>
                     </configuration>
                 </plugin>
@@ -762,6 +763,7 @@
                     <version>${rpm-maven-plugin.version}</version>
                     <configuration>
                         <group>Applications/Archiving</group>
+                        <release>${rpm-release}</release>
                         <vendor>${dans-provider-name}</vendor>
                         <packager>${dans-provider-name}</packager>
                         <name>${dans-provider-name}-${project.artifactId}</name>
