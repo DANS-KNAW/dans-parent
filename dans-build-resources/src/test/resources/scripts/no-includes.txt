@@ -1,0 +1,5 @@
+A script
+that contains
+no includes
+so should stay
+exactly the same.

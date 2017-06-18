@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.45</version>
+    <version>1.47</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -446,11 +446,36 @@
                                 <artifactItem>
                                     <groupId>nl.knaw.dans.shared</groupId>
                                     <artifactId>dans-build-resources</artifactId>
-                                    <version>1.3</version>
+                                    <version>1.4.0</version>
                                     <outputDirectory>${project.build.directory}/dans-build-resources</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <target>
+                                <java classname="nl.knaw.dans.build.GenerateRpmScripts">
+                                    <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh"/>
+                                    <arg value="${project.build.directory}/dans-build-resources/rpm-includes" />
+                                    <arg value="${project.build.directory}/dans-rpm-scripts" />
+                                    <classpath>
+                                        <!-- Somehow using project.build.directory here does not work -->
+                                        <pathelement location="target/dans-build-resources" />
+                                    </classpath>
+                                </java>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -838,19 +863,19 @@
                             </mapping>
                         </mappings>
                         <preinstallScriptlet>
-                            <scriptFile>src/main/rpm/1-pre-install.sh</scriptFile>
+                            <scriptFile>target/dans.knaw.nl-rpm-script/1-pre-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preinstallScriptlet>
                         <postinstallScriptlet>
-                            <scriptFile>src/main/rpm/2-post-install.sh</scriptFile>
+                            <scriptFile>target/dans.knaw.nl-rpm-script/2-post-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postinstallScriptlet>
                         <preremoveScriptlet>
-                            <scriptFile>src/main/rpm/3-pre-remove.sh</scriptFile>
+                            <scriptFile>target/dans.knaw.nl-rpm-script/3-pre-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preremoveScriptlet>
                         <postremoveScriptlet>
-                            <scriptFile>src/main/rpm/4-post-remove.sh</scriptFile>
+                            <scriptFile>target/dans.knaw.nl-rpm-script/4-post-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postremoveScriptlet>
                     </configuration>
