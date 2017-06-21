@@ -14,7 +14,6 @@ service_stop() {
         fi
     fi
     echo "OK"
-    exit 1
 }
 
 service_create_module_user() {
@@ -29,6 +28,13 @@ service_create_module_user() {
     then
         echo -n "Creating module user: $MODULE_OWNER..."
         useradd --system $MODULE_OWNER 2> /dev/null
+
+        if [ $? -ne 0 ]; then
+            echo "FAILED"
+            echo "Unable to create user $MODULE_OWNER."
+            exit 1
+        fi
+
         echo "OK"
     else
         echo "Module user $MODULE_OWNER already exists. No action taken."
@@ -46,7 +52,21 @@ service_install_initd_service_script() {
     if [ -d $INITD_SCRIPTS_DIR ]; then
         echo -n "Installing initd service script..."
         cp $SCRIPT $INITD_SCRIPTS_DIR/$MODULE_NAME
+
+        if [ $? -ne 0 ]; then
+            echo "FAILED"
+            echo "Unable to copy initd service script."
+            exit 1
+        fi
+
         chmod o+x $INITD_SCRIPTS_DIR/$MODULE_NAME
+
+        if [ $? -ne 0 ]; then
+            echo "FAILED"
+            echo "Unable to make service script executable for owner"
+            exit 1
+        fi
+
         echo "OK"
     fi
 }
@@ -61,20 +81,32 @@ service_remove_initd_service_script() {
     if [ -f $INITD_SCRIPTS_DIR/$MODULE_NAME ]; then
         echo -n "Removing initd service script..."
         rm $INITD_SCRIPTS_DIR/$MODULE_NAME
+
+        if [ $? -ne 0 ]; then
+            echo "WARNING: initd service script could not be removed: $INITD_SCRIPTS_DIR/$MODULE_NAME."
+        fi
+
         echo "OK"
     fi
 }
 
 service_install_systemd_unit() {
     # Parameters
-    local UNIT=$1
+    local UNIT_FILE=$1
 
     # Constants
     local SYSTEMD_SCRIPTS_DIR="/usr/lib/systemd/system"
 
     if [ -d $SYSTEMD_SCRIPTS_DIR ]; then
         echo -n "Installing systemd unit file..."
-        cp $UNIT $SYSTEMD_SCRIPTS_DIR/
+        cp $UNIT_FILE $SYSTEMD_SCRIPTS_DIR/
+
+        if [ $? -ne 0 ]; then
+            echo "FAILED"
+            echo "Could not copy systemd unit file."
+            exit 1
+        fi
+
         echo "OK"
     fi
 }
@@ -89,6 +121,11 @@ service_remove_systemd_unit() {
     if [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]; then
         echo -n "Removing systemd unit file..."
         rm $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service
+
+        if [ $? -ne 0 ]; then
+            echo "WARNING: systemd unit file could not be removed: $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service"
+        fi
+
         echo "OK"
     fi
 }
@@ -103,6 +140,20 @@ service_create_log_directory() {
 
     echo -n "Creating directory for logging..."
     mkdir -p $LOG_DIR
+
+    if [ $? -ne 0 ]; then
+        echo "FAILED"
+        echo "Could not create directory for logging at $LOG_DIR"
+        exit 1
+    fi
+
     chown $MODULE_NAME $LOG_DIR
+
+    if [ $? -ne 0 ]; then
+        echo "FAILED"
+        echo "Could not change ownership of $LOG_DIR to $MODULE_NAME."
+        exit 1
+    fi
+
     echo "OK"
 }
