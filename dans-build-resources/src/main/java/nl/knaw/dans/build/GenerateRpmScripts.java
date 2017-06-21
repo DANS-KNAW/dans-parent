@@ -1,7 +1,6 @@
 package nl.knaw.dans.build;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,16 +16,26 @@ public class GenerateRpmScripts {
   private static Pattern includeDirectivePattern = Pattern.compile("^#include\\s+<(.*?)>", Pattern.MULTILINE);
 
   public static void main(String[] args) throws IOException {
-    if (args.length != 3)
+    if (args.length < 3)
       throw new IllegalArgumentException(
-          "Need exactly three arguments: <src> <includesDir> <destDir>");
-    Path sourceFile = Paths.get(args[0]);
-    Path includeFilesDirectory = Paths.get(args[1]);
-    Path destinationDirectory = Paths.get(args[2]);
-    execute(sourceFile, includeFilesDirectory, destinationDirectory);
+          "Need at least three arguments: <includesDir> <destDir> <src>...");
+    Path includeFilesDirectory = Paths.get(args[0]);
+    Path destinationDirectory = Paths.get(args[1]);
+    List<Path> sourceFiles = new ArrayList<>();
+    for (int i = 2; i < args.length; ++i) {
+      sourceFiles.add(Paths.get(args[i]));
+    }
+    execute(sourceFiles, includeFilesDirectory, destinationDirectory);
   }
 
-  public static void execute(Path sourceFile, Path includeFilesDirectory, Path destinationDirectory) throws IOException {
+  public static void execute(List<Path> sourceFiles, Path includeFilesDirectory, Path destinationDirectory) throws IOException {
+    for (Path sourceFile: sourceFiles) {
+      execute(sourceFile, includeFilesDirectory, destinationDirectory);
+    }
+  }
+
+  public static void execute(Path sourceFile, Path includeFilesDirectory, Path destinationDirectory) throws IOException  {
+
     String scriptText = "";
     if (!Files.exists(destinationDirectory)) {
       System.out.println("Creating destination dir: " + destinationDirectory.toAbsolutePath());
