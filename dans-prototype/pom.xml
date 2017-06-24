@@ -465,16 +465,16 @@
                                 <java classname="nl.knaw.dans.build.GenerateRpmScripts" failonerror="true">
                                     <arg value="${project.build.directory}/dans-build-resources/rpm-includes" />
                                     <arg value="${project.build.directory}/dans-rpm-scripts" />
-                                    <arg value="${project.basedir}/src/main/rpm/0-prepare.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/build-0-prepare.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/build-1-install.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/build-2-clean.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/0-pre-trans.sh" />
                                     <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/2-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/3-post-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/4-pre-remove.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/5-post-remove.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/2-post-install.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/3-pre-remove.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/4-post-remove.sh" />
+                                    <arg value="${project.basedir}/src/main/rpm/5-post-trans.sh" />
                                     <arg value="${project.basedir}/src/main/rpm/6-verify.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/7-clean.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/8-pre-trans.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/9-post-trans.sh" />
                                     <classpath>
                                         <!-- Somehow using project.build.directory here does not work -->
                                         <pathelement location="target/dans-build-resources" />
