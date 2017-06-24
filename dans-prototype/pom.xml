@@ -871,46 +871,51 @@
                                 </sources>
                             </mapping>
                         </mappings>
+                        <!-- Build-time scripts -->
                         <prepareScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/0-prepare.sh</scriptFile>
+                            <scriptFile>target/dans-rpm-scripts/build-0-prepare.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </prepareScriptlet>
+                        <installScriptlet>
+                            <scriptFile>target/dans-rpm-scripts/build-1-install.sh</scriptFile>
+                            <fileEncoding>UTF-8</fileEncoding>
+                        </installScriptlet>
+                        <cleanScriptlet>
+                            <!-- NOTE: I have not been able to establish that this script is executed at all -->
+                            <scriptFile>target/dans-rpm-scripts/build-2-clean.sh</scriptFile>
+                            <fileEncoding>UTF-8</fileEncoding>
+                        </cleanScriptlet>
+
+                        <!-- Install/erase-time scripts -->
+                        <pretransScriptlet>
+                            <scriptFile>target/dans-rpm-scripts/0-pre-trans.sh</scriptFile>
+                            <fileEncoding>UTF-8</fileEncoding>
+                        </pretransScriptlet>
                         <preinstallScriptlet>
                             <scriptFile>target/dans-rpm-scripts/1-pre-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preinstallScriptlet>
-                        <installScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/2-install.sh</scriptFile>
-                            <fileEncoding>UTF-8</fileEncoding>
-                        </installScriptlet>
                         <postinstallScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/3-post-install.sh</scriptFile>
+                            <scriptFile>target/dans-rpm-scripts/2-post-install.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postinstallScriptlet>
                         <preremoveScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/4-pre-remove.sh</scriptFile>
+                            <scriptFile>target/dans-rpm-scripts/3-pre-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </preremoveScriptlet>
                         <postremoveScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/5-post-remove.sh</scriptFile>
+                            <scriptFile>target/dans-rpm-scripts/4-post-remove.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </postremoveScriptlet>
+                        <posttransScriptlet>
+                            <scriptFile>target/dans-rpm-scripts/5-post-trans.sh</scriptFile>
+                            <fileEncoding>UTF-8</fileEncoding>
+                        </posttransScriptlet>
                         <verifyScriptlet>
+                            <!-- NOTE: I have not been able to establish that this script is executed at all -->
                             <scriptFile>target/dans-rpm-scripts/6-verify.sh</scriptFile>
                             <fileEncoding>UTF-8</fileEncoding>
                         </verifyScriptlet>
-                        <cleanScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/7-clean.sh</scriptFile>
-                            <fileEncoding>UTF-8</fileEncoding>
-                        </cleanScriptlet>
-                        <pretransScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/8-pre-trans.sh</scriptFile>
-                            <fileEncoding>UTF-8</fileEncoding>
-                        </pretransScriptlet>
-                        <posttransScriptlet>
-                            <scriptFile>target/dans-rpm-scripts/9-post-trans.sh</scriptFile>
-                            <fileEncoding>UTF-8</fileEncoding>
-                        </posttransScriptlet>
                     </configuration>
                 </plugin>
 

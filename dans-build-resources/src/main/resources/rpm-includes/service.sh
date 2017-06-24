@@ -41,6 +41,18 @@ service_create_module_user() {
     fi
 }
 
+service_is_systemd_controlled() {
+   pidof systemd > /dev/null && echo -n 1 || echo -n 0
+}
+
+service_is_initd_controlled() {
+    # According to this post https://unix.stackexchange.com/questions/121654/convenient-way-to-check-if-system-is-using-systemd-or-sysvinit-in-bash
+    # it should be possible to establish that initd is controlling the system by checking that /sbin/init has pid 1. However it
+    # seems that when running as root /sbin/init has pid 1 even though systemd is running. Possibly it is just an alias of systemd in that case.
+    # We therefore use the absence of systemd as the criterion for initd being in charge.
+    pidof systemd > /dev/null && echo -n 0 || echo -n 1
+}
+
 service_install_initd_service_script() {
     # Parameters
     local SCRIPT=$1
@@ -49,7 +61,7 @@ service_install_initd_service_script() {
     # Constants
     local INITD_SCRIPTS_DIR="/etc/init.d"
 
-    if [ -d $INITD_SCRIPTS_DIR ]; then
+    if (( $(service_is_initd_controlled) )); then
         echo -n "Installing initd service script..."
         cp $SCRIPT $INITD_SCRIPTS_DIR/$MODULE_NAME
 
@@ -74,11 +86,12 @@ service_install_initd_service_script() {
 service_remove_initd_service_script() {
     # Parameters
     local MODULE_NAME=$1
+    local NUMBER_OF_INSTALLATIONS=$2
 
     # Constants
     local INITD_SCRIPTS_DIR="/etc/init.d"
 
-    if [ -f $INITD_SCRIPTS_DIR/$MODULE_NAME ]; then
+    if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $INITD_SCRIPTS_DIR/$MODULE_NAME ]); then
         echo -n "Removing initd service script..."
         rm $INITD_SCRIPTS_DIR/$MODULE_NAME
 
@@ -97,7 +110,7 @@ service_install_systemd_unit() {
     # Constants
     local SYSTEMD_SCRIPTS_DIR="/usr/lib/systemd/system"
 
-    if [ -d $SYSTEMD_SCRIPTS_DIR ]; then
+    if (( $(service_is_systemd_controlled) )); then
         echo -n "Installing systemd unit file..."
         cp $UNIT_FILE $SYSTEMD_SCRIPTS_DIR/
 
@@ -114,11 +127,12 @@ service_install_systemd_unit() {
 service_remove_systemd_unit() {
     # Parameters
     local MODULE_NAME=$1
+    local NUMBER_OF_INSTALLATIONS=$2
 
     # Constants
     local SYSTEMD_SCRIPTS_DIR="/usr/lib/systemd/system"
 
-    if [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]; then
+    if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]); then
         echo -n "Removing systemd unit file..."
         rm $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service
 
