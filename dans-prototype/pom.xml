@@ -91,6 +91,7 @@
         <hazelcast.version>3.7.1</hazelcast.version>
         <hazelcast.scala.version>3.6.1</hazelcast.scala.version>
         <json4s.version>3.4.0</json4s.version>
+        <sqlite.version>3.19.3</sqlite.version>
     </properties>
     <prerequisites>
         <maven>3.0.3</maven>
@@ -388,6 +389,11 @@
                 <artifactId>json4s-ext_2.11</artifactId>
                 <version>${json4s.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>${sqlite.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <pluginRepositories>
@@ -582,6 +588,7 @@
                             <exclude>src/main/ansible/*.repo</exclude>
                             <exclude>.yum-repo/</exclude>
                             <exclude>*.pyc</exclude>
+                            <exclude>*.conf</exclude>
                         </excludes>
                     </configuration>
                     <executions>
