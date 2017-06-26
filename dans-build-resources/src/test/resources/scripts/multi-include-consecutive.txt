@@ -1,0 +1,7 @@
+A series of includes:
+
+#include <single-line.txt>
+#include <multi-line.txt>
+
+An some more text.
+
