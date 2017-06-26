@@ -588,7 +588,7 @@
                             <exclude>src/main/ansible/*.repo</exclude>
                             <exclude>.yum-repo/</exclude>
                             <exclude>*.pyc</exclude>
-                            <exclude>*.conf</exclude>
+                            <exclude>**/*.conf</exclude>
                         </excludes>
                     </configuration>
                     <executions>
