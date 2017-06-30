@@ -1,43 +1,20 @@
 #@IgnoreInspection BashAddShebang
 
-service_stop() {
-    # Parameters
-    local SERVICE_NAME=$1
-    local NUMBER_OF_INSTALLATIONS=$2
+exit_if_failed() {
+    local MESSAGE=$1
+    local EXIT_STATUS=${2:-1}
 
-    # If the package has not been installed yet, there is no need to attempt stopping the service.
-    if [ $NUMBER_OF_INSTALLATIONS -gt 0 ]; then
-        echo -n "Attempting to stop service..."
-        service $SERVICE_NAME stop  2> /dev/null 1> /dev/null
-        if [ $? -ne 0 ]; then
-            systemctl stop $SERVICE_NAME 2> /dev/null 1> /dev/null
-        fi
+    if [ $? -ne 0 ]; then
+       echo "FAILED: $MESSAGE."
+       exit $EXIT_STATUS
     fi
-    echo "OK"
 }
 
-service_create_module_user() {
-    # Parameters
-    local MODULE_OWNER=$1
+warn_if_failed() {
+    local MESSAGE=$1
 
-    # Getting the user ID of a non-existent user will result in exit status 1.
-    # We do not want to see the error messages, so we redirect them to the memory hole.
-    id -u $1 2> /dev/null 1> /dev/null
-
-    if [ "$?" == "1" ]; # User not found
-    then
-        echo -n "Creating module user: $MODULE_OWNER..."
-        useradd --system $MODULE_OWNER 2> /dev/null
-
-        if [ $? -ne 0 ]; then
-            echo "FAILED"
-            echo "Unable to create user $MODULE_OWNER."
-            exit 1
-        fi
-
-        echo "OK"
-    else
-        echo "Module user $MODULE_OWNER already exists. No action taken."
+    if [ $? -ne 0 ]; then
+        echo "WARNING: $MESSAGE."
     fi
 }
 
@@ -53,6 +30,96 @@ service_is_initd_controlled() {
     pidof systemd > /dev/null && echo -n 0 || echo -n 1
 }
 
+service_save_restart_memo() {
+    # Parameters
+    local SERVICE_NAME=$1
+
+    # Constants
+    local RESTART_MEMO="/tmp/$SERVICE_NAME-restart-memo"
+
+    if [ -d /tmp ]; then
+        echo -n "Service is running; /tmp found; creating memo to restart service after upgrade..."
+        touch $RESTART_MEMO
+        echo "OK"
+    fi
+}
+
+service_stop() {
+    # Parameters
+    local SERVICE_NAME=$1
+    local NUMBER_OF_INSTALLATIONS=$2
+
+    # If the package has not been installed yet, there is no need to attempt stopping the service.
+    if [ $NUMBER_OF_INSTALLATIONS -gt 1 ]; then
+        if (( $(service_is_systemd_controlled) )); then
+            systemctl status $SERVICE_NAME 2> /dev/null 1> /dev/null
+            STATE=$?
+
+            if [ $STATE -eq 0 ]; then # Service is running
+               service_save_restart_memo $SERVICE_NAME
+               echo -n "Attempting to stop service..."
+               systemctl stop $SERVICE_NAME 2> /dev/null 1> /dev/null
+               exit_if_failed "Could not stop service $SERVICE_NAME"
+               echo "OK"
+            fi
+        else # we assume it is initd-controlled
+            # Depends on the output of the status command. This should end in "is running." or "is stopped."
+            local STATE=$(service $SERVICE_NAME status | sed  's/^.*is \(.*\)\.$/\1/')
+
+            if [ "$STATE" == "running" ]; then
+               service_save_restart_memo $SERVICE_NAME
+               echo -n "Attempting to stop service..."
+               service $SERVICE_NAME stop  2> /dev/null 1> /dev/null
+               exit_if_failed "Could not stop service $SERVICE_NAME"
+               echo "OK"
+            fi
+        fi
+    fi
+}
+
+service_restart() {
+    # Parameters
+    local SERVICE_NAME=$1
+
+    # Constants
+    local RESTART_MEMO="/tmp/$SERVICE_NAME-restart-memo"
+
+    if [ -f $RESTART_MEMO ]; then
+        echo -n "Found restart memo; attempting to start service..."
+        rm $RESTART_MEMO
+
+        if (( $(service_is_systemd_controlled) )); then
+            systemctl daemon-reload
+            systemctl start $SERVICE_NAME 2> /dev/null 1> /dev/null
+            warn_if_failed "Could not restart service $SERVICE_NAME after upgrade"
+            echo "OK"
+        else
+            service $SERVICE_NAME start 2> /dev/null 1> /dev/null
+            warn_if_failed "Could not restart service $SERVICE_NAME after upgrade"
+            echo "OK"
+        fi
+    fi
+}
+
+service_create_module_user() {
+    # Parameters
+    local MODULE_OWNER=$1
+
+    # Getting the user ID of a non-existent user will result in exit status 1.
+    # We do not want to see the error messages, so we redirect them to the memory hole.
+    id -u $1 2> /dev/null 1> /dev/null
+
+    if [ "$?" == "1" ]; # User not found
+    then
+        echo -n "Creating module user: $MODULE_OWNER..."
+        useradd --system $MODULE_OWNER 2> /dev/null
+        exit_if_failed "Unable to create user $MODULE_OWNER."
+        echo "OK"
+    else
+        echo "Module user $MODULE_OWNER already exists. No action taken."
+    fi
+}
+
 service_install_initd_service_script() {
     # Parameters
     local SCRIPT=$1
@@ -64,21 +131,9 @@ service_install_initd_service_script() {
     if (( $(service_is_initd_controlled) )); then
         echo -n "Installing initd service script..."
         cp $SCRIPT $INITD_SCRIPTS_DIR/$MODULE_NAME
-
-        if [ $? -ne 0 ]; then
-            echo "FAILED"
-            echo "Unable to copy initd service script."
-            exit 1
-        fi
-
+        exit_if_failed "Unable to copy initd service script."
         chmod o+x $INITD_SCRIPTS_DIR/$MODULE_NAME
-
-        if [ $? -ne 0 ]; then
-            echo "FAILED"
-            echo "Unable to make service script executable for owner"
-            exit 1
-        fi
-
+        exit_if_failed "Unable to make service script executable for owner"
         echo "OK"
     fi
 }
@@ -94,11 +149,7 @@ service_remove_initd_service_script() {
     if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $INITD_SCRIPTS_DIR/$MODULE_NAME ]); then
         echo -n "Removing initd service script..."
         rm $INITD_SCRIPTS_DIR/$MODULE_NAME
-
-        if [ $? -ne 0 ]; then
-            echo "WARNING: initd service script could not be removed: $INITD_SCRIPTS_DIR/$MODULE_NAME."
-        fi
-
+        warn_if_failed "initd service script could not be removed: $INITD_SCRIPTS_DIR/$MODULE_NAME."
         echo "OK"
     fi
 }
@@ -113,13 +164,7 @@ service_install_systemd_unit() {
     if (( $(service_is_systemd_controlled) )); then
         echo -n "Installing systemd unit file..."
         cp $UNIT_FILE $SYSTEMD_SCRIPTS_DIR/
-
-        if [ $? -ne 0 ]; then
-            echo "FAILED"
-            echo "Could not copy systemd unit file."
-            exit 1
-        fi
-
+        exit_if_failed "Could not copy systemd unit file."
         echo "OK"
     fi
 }
@@ -135,11 +180,7 @@ service_remove_systemd_unit() {
     if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]); then
         echo -n "Removing systemd unit file..."
         rm $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service
-
-        if [ $? -ne 0 ]; then
-            echo "WARNING: systemd unit file could not be removed: $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service"
-        fi
-
+        warn_if_failed "systemd unit file could not be removed: $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service"
         echo "OK"
     fi
 }
@@ -152,22 +193,15 @@ service_create_log_directory() {
     local LOG_BASE="/var/opt/dans.knaw.nl/log"
     local LOG_DIR="$LOG_BASE/$MODULE_NAME"
 
-    echo -n "Creating directory for logging..."
-    mkdir -p $LOG_DIR
-
-    if [ $? -ne 0 ]; then
-        echo "FAILED"
-        echo "Could not create directory for logging at $LOG_DIR"
-        exit 1
+    if [ ! -d $LOG_DIR ]; then
+        echo -n "Creating directory for logging..."
+        mkdir -p $LOG_DIR
+        exit_if_failed "Could not create directory for logging at $LOG_DIR"
+        echo "OK"
     fi
 
+    echo -n "Making sure logging directory is owned by service user..."
     chown $MODULE_NAME $LOG_DIR
-
-    if [ $? -ne 0 ]; then
-        echo "FAILED"
-        echo "Could not change ownership of $LOG_DIR to $MODULE_NAME."
-        exit 1
-    fi
-
+    exit_if_failed "Could not change ownership of $LOG_DIR to $MODULE_NAME."
     echo "OK"
 }
