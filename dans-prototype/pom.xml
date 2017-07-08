@@ -35,6 +35,8 @@
         <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
         <license-maven-plugin.version>2.11</license-maven-plugin.version>
         <artifactory-maven-plugin.version>2.4.1</artifactory-maven-plugin.version>
+        <rpm-maven-plugin.version>2.1.5</rpm-maven-plugin.version>
+
         <!--
             According to mvnrepository.com the eclipse branch of jetty is the "current" one.
             However the jetty-runner of the eclipse branch does not seem to work very well
@@ -63,7 +65,7 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <commons-csv.version>1.1</commons-csv.version>
         <commons-daemon.version>1.0.15</commons-daemon.version>
-        <dans-scala-lib>1.0</dans-scala-lib>
+        <dans-scala-lib.version>1.2</dans-scala-lib.version>
         <scala.version>2.11.7</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
         <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
@@ -355,7 +357,7 @@
             <dependency>
                 <groupId>nl.knaw.dans.lib</groupId>
                 <artifactId>dans-scala-lib</artifactId>
-                <version>${dans-scala-lib}</version>
+                <version>${dans-scala-lib.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.hazelcast</groupId>
