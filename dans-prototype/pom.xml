@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.48</version>
+    <version>1.49</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -590,6 +590,7 @@
                             <exclude>.yum-repo/</exclude>
                             <exclude>*.pyc</exclude>
                             <exclude>**/*.conf</exclude>
+                            <exclude>**/*.fact</exclude>
                         </excludes>
                     </configuration>
                     <executions>
@@ -819,48 +820,41 @@
                             <require>java-1.8.0-openjdk</require>
                         </requires>
                         <mappings>
+                            <!-- Contents of ${app.home}/lib -->
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/lib</directory>
                                 <dependency />
                             </mapping>
+                            <!-- Read-only contents of ${app.home}/bin  -->
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
-                                <filemode>444</filemode>
                                 <sources>
                                     <source>
                                         <location>src/main/assembly/dist/bin</location>
                                         <excludes>
+                                            <!-- This is the executable, so exclude here -->
                                             <exclude>${project.artifactId}</exclude>
-                                            <exclude>${project.artifactId}-service-start</exclude>
-                                            <exclude>version</exclude>
                                         </excludes>
                                     </source>
                                     <source>
                                         <location>${project.build.directory}/${project.artifactId}.jar</location>
                                     </source>
-                                </sources>
-                            </mapping>
-                            <mapping>
-                                <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
-                                <filemode>444</filemode>
-                                <sources>
                                     <source>
                                         <location>${project.build.directory}/version/version</location>
                                     </source>
                                 </sources>
                             </mapping>
+                            <!-- Executable contents of ${app.home}/bin -->
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/bin</directory>
                                 <filemode>755</filemode>
                                 <sources>
                                     <source>
-                                        <location>src/main/assembly/dist/bin/${project.artifactId}-service-start</location>
-                                    </source>
-                                    <source>
                                         <location>src/main/assembly/dist/bin/${project.artifactId}</location>
                                     </source>
                                 </sources>
                             </mapping>
+                            <!-- Contents of cfg dir under /etc/opt ... -->
                             <mapping>
                                 <directory>/etc/opt/${dans-provider-name}/${project.artifactId}</directory>
                                 <configuration>noreplace</configuration>
@@ -870,6 +864,16 @@
                                     </source>
                                 </sources>
                             </mapping>
+                            <!-- Contents of ${app.home}/install -->
+                            <mapping>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/install</directory>
+                                <sources>
+                                    <source>
+                                        <location>src/main/assembly/dist/install</location>
+                                    </source>
+                                </sources>
+                            </mapping>
+                            <!-- Symlink to executable, to put it on the PATH -->
                             <mapping>
                                 <directory>/opt/bin</directory>
                                 <sources>

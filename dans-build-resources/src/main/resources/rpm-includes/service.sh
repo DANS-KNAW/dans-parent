@@ -157,15 +157,29 @@ service_remove_initd_service_script() {
 service_install_systemd_unit() {
     # Parameters
     local UNIT_FILE=$1
+    local MODULE_NAME=$2
+    local DROP_IN_FILE=$3
 
     # Constants
     local SYSTEMD_SCRIPTS_DIR="/usr/lib/systemd/system"
+    local SYSTEMD_DROP_INS_PARENT_DIR="/etc/systemd/system"
 
     if (( $(service_is_systemd_controlled) )); then
         echo -n "Installing systemd unit file..."
         cp $UNIT_FILE $SYSTEMD_SCRIPTS_DIR/
         exit_if_failed "Could not copy systemd unit file."
         echo "OK"
+
+        if [ $# -gt 2 ]; then
+            echo -n "Installing drop-ins..."
+            local DROP_IN_DIR="$SYSTEMD_DROP_INS_PARENT_DIR/$MODULE_NAME.service.d/"
+            if [ ! -d $DROP_IN_DIR ]; then
+                mkdir $DROP_IN_DIR
+            fi
+            cp $DROP_IN_FILE $DROP_IN_DIR
+            exit_if_failed "Could not install drop-ins."
+            echo "OK"
+        fi
     fi
 }
 
