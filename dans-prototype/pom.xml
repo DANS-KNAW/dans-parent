@@ -864,12 +864,16 @@
                                     </source>
                                 </sources>
                             </mapping>
-                            <!-- Contents of ${app.home}/install -->
+                            <!-- Contents of ${app.home}/{*-bin/cfg} -->
                             <mapping>
-                                <directory>/opt/${dans-provider-name}/${project.artifactId}/install</directory>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}</directory>
                                 <sources>
                                     <source>
-                                        <location>src/main/assembly/dist/install</location>
+                                        <location>src/main/assembly/dist</location>
+                                        <excludes>
+                                            <exclude>bin</exclude>
+                                            <exclude>cfg</exclude>
+                                        </excludes>
                                     </source>
                                 </sources>
                             </mapping>
