@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.50</version>
+    <version>1.51</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -591,6 +591,7 @@
                             <exclude>*.pyc</exclude>
                             <exclude>**/*.conf</exclude>
                             <exclude>**/*.fact</exclude>
+                            <exclude>**/*.ldif</exclude>
                         </excludes>
                     </configuration>
                     <executions>
@@ -871,8 +872,8 @@
                                     <source>
                                         <location>src/main/assembly/dist</location>
                                         <excludes>
-                                            <exclude>bin</exclude>
-                                            <exclude>cfg</exclude>
+                                            <exclude>bin/*</exclude>
+                                            <exclude>cfg/*</exclude>
                                         </excludes>
                                     </source>
                                 </sources>
