@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.51</version>
+    <version>1.52</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -588,6 +588,7 @@
                             <exclude>src/main/ansible/ansible.cfg</exclude>
                             <exclude>src/main/ansible/*.repo</exclude>
                             <exclude>.yum-repo/</exclude>
+                            <exclude>.dans.knaw.nl-yum-repo/</exclude>
                             <exclude>*.pyc</exclude>
                             <exclude>**/*.conf</exclude>
                             <exclude>**/*.fact</exclude>
