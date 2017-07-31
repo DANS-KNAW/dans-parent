@@ -190,11 +190,18 @@ service_remove_systemd_unit() {
 
     # Constants
     local SYSTEMD_SCRIPTS_DIR="/usr/lib/systemd/system"
+    local SYSTEMD_DROP_INS_PARENT_DIR="/etc/systemd/system"
 
     if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]); then
         echo -n "Removing systemd unit file..."
         rm $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service
         warn_if_failed "systemd unit file could not be removed: $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service"
+
+        local DROP_IN_DIR="$SYSTEMD_DROP_INS_PARENT_DIR/$MODULE_NAME.service.d/"
+        if [ -d $DROP_IN_DIR ]; then
+            rm -fr $DROP_IN_DIR
+            warn_if_failed "systemd drop-in directory at $DROP_IN_DIR could not be removed."
+        fi
         echo "OK"
     fi
 }
