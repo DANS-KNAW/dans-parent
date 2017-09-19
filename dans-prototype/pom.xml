@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.53</version>
+    <version>1.54</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -826,7 +826,9 @@
                             <!-- Contents of ${app.home}/lib -->
                             <mapping>
                                 <directory>/opt/${dans-provider-name}/${project.artifactId}/lib</directory>
-                                <dependency />
+                                <dependency>
+                                    <stripVersion>false</stripVersion>
+                                </dependency>
                             </mapping>
                             <!-- Read-only contents of ${app.home}/bin  -->
                             <mapping>
