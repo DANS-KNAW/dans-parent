@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.54</version>
+    <version>1.55</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -615,7 +615,6 @@
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
                     <configuration>
-                        <finalName>${project.artifactId}</finalName>
                         <archive>
                             <manifest>
                                 <addClasspath>true</addClasspath>
@@ -838,11 +837,11 @@
                                         <location>src/main/assembly/dist/bin</location>
                                         <excludes>
                                             <!-- This is the executable, so exclude here -->
-                                            <exclude>${project.artifactId}</exclude>
+                                            <exclude>${project.artifactId}-${project.version}</exclude>
                                         </excludes>
                                     </source>
                                     <source>
-                                        <location>${project.build.directory}/${project.artifactId}.jar</location>
+                                        <location>${project.build.directory}/${project.artifactId}-${project.version}.jar</location>
                                     </source>
                                     <source>
                                         <location>${project.build.directory}/version/version</location>
