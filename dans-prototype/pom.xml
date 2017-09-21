@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.55</version>
+    <version>1.56</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -887,6 +887,16 @@
                                 <sources>
                                     <softlinkSource>
                                         <location>/opt/${dans-provider-name}/${project.artifactId}/bin/${project.artifactId}</location>
+                                    </softlinkSource>
+                                </sources>
+                            </mapping>
+                            <!-- Symlink jar to version-less location -->
+                            <mapping>
+                                <directory>/opt/${dans-provider-name}/${project.artifactId}/bin/</directory>
+                                <sources>
+                                    <softlinkSource>
+                                        <destination>${project.artifactId}.jar</destination>
+                                        <location>/opt/${dans-provider-name}/${project.artifactId}/bin/${project.artifactId}-${project.version}.jar</location>
                                     </softlinkSource>
                                 </sources>
                             </mapping>
