@@ -90,11 +90,11 @@ service_restart() {
 
         if (( $(service_is_systemd_controlled) )); then
             systemctl daemon-reload
-            systemctl start $SERVICE_NAME 2> /dev/null 1> /dev/null
+            systemctl restart $SERVICE_NAME 2> /dev/null 1> /dev/null
             warn_if_failed "Could not restart service $SERVICE_NAME after upgrade"
             echo "OK"
         else
-            service $SERVICE_NAME start 2> /dev/null 1> /dev/null
+            service $SERVICE_NAME restart 2> /dev/null 1> /dev/null
             warn_if_failed "Could not restart service $SERVICE_NAME after upgrade"
             echo "OK"
         fi
