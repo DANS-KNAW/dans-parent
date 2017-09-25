@@ -39,7 +39,7 @@ tomcat_create_log_directory() {
     fi
 
     echo -n "Making sure logging directory is owned by service user..."
-    chown $MODULE_NAME tomcat
+    chown -R tomcat:tomcat $LOG_DIR
     exit_if_failed "Could not change ownership of $LOG_DIR to tomcat."
     echo "OK"
 }
