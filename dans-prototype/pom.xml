@@ -4,12 +4,13 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.59</version>
+    <version>1.60</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
         <rpm-release /><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
         <dans-provider-name>dans.knaw.nl</dans-provider-name>
+        <rpm-replace-configuration>noreplace</rpm-replace-configuration>
         <!-- General properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp><!-- wrapped system property 
@@ -862,7 +863,7 @@
                             <!-- Contents of cfg dir under /etc/opt ... -->
                             <mapping>
                                 <directory>/etc/opt/${dans-provider-name}/${project.artifactId}</directory>
-                                <configuration>noreplace</configuration>
+                                <configuration>${rpm-replace-configuration}</configuration>
                                 <sources>
                                     <source>
                                         <location>src/main/assembly/dist/cfg</location>
