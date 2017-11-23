@@ -4,7 +4,7 @@
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.61</version>
+    <version>1.62</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
@@ -16,7 +16,7 @@
         <timestamp>${maven.build.timestamp}</timestamp><!-- wrapped system property 
             in own property as work-around for http://jira.codehaus.org/browse/MRESOURCES-99 -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-        <dans-build-resources.version>2.3.1</dans-build-resources.version>
+        <dans-build-resources.version>2.4.0</dans-build-resources.version>
 
         <!-- Plug-in versions -->
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>

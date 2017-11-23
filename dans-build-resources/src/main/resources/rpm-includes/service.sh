@@ -53,7 +53,7 @@ service_stop() {
     if [ $NUMBER_OF_INSTALLATIONS -gt 1 ]; then
         if (( $(service_is_systemd_controlled) )); then
             systemctl status $SERVICE_NAME 2> /dev/null 1> /dev/null
-            STATE=$?
+            local STATE=$?
 
             if [ $STATE -eq 0 ]; then # Service is running
                service_save_restart_memo $SERVICE_NAME
@@ -73,6 +73,34 @@ service_stop() {
                exit_if_failed "Could not stop service $SERVICE_NAME"
                echo "OK"
             fi
+        fi
+    fi
+}
+
+# Attempts to stop the service under all conditions. Does NOT safe a restart memo
+service_stop_unconditional() {
+    # Parameters
+    local SERVICE_NAME=$1
+
+    if (( $(service_is_systemd_controlled) )); then
+        systemctl status $SERVICE_NAME 2> /dev/null 1> /dev/null
+        local STATE=$?
+
+        if [ $STATE -eq 0 ]; then # Service is running
+           echo -n "Attempting to stop service..."
+           systemctl stop $SERVICE_NAME 2> /dev/null 1> /dev/null
+           exit_if_failed "Could not stop service $SERVICE_NAME"
+           echo "OK"
+        fi
+    else # we assume it is initd-controlled
+        # Depends on the output of the status command. This should end in "is running." or "is stopped."
+        local STATE=$(service $SERVICE_NAME status | sed  's/^.*is \(.*\)\.$/\1/')
+
+        if [ "$STATE" == "running" ]; then
+           echo -n "Attempting to stop service..."
+           service $SERVICE_NAME stop  2> /dev/null 1> /dev/null
+           exit_if_failed "Could not stop service $SERVICE_NAME"
+           echo "OK"
         fi
     fi
 }
@@ -147,6 +175,8 @@ service_remove_initd_service_script() {
     local INITD_SCRIPTS_DIR="/etc/init.d"
 
     if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $INITD_SCRIPTS_DIR/$MODULE_NAME ]); then
+        service_stop_unconditional $MODULE_NAME
+
         echo -n "Removing initd service script..."
         rm $INITD_SCRIPTS_DIR/$MODULE_NAME
         warn_if_failed "initd service script could not be removed: $INITD_SCRIPTS_DIR/$MODULE_NAME."
@@ -193,6 +223,8 @@ service_remove_systemd_unit() {
     local SYSTEMD_DROP_INS_PARENT_DIR="/etc/systemd/system"
 
     if ([ $NUMBER_OF_INSTALLATIONS -eq 0 ] && [ -f $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service ]); then
+        service_stop_unconditional $MODULE_NAME
+
         echo -n "Removing systemd unit file..."
         rm $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service
         warn_if_failed "systemd unit file could not be removed: $SYSTEMD_SCRIPTS_DIR/${MODULE_NAME}.service"
