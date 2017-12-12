@@ -6,7 +6,7 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.62-SNAPSHOT</version>
+        <version>1.63-SNAPSHOT</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
 
