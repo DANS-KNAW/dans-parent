@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
@@ -8,7 +9,7 @@
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
-        <rpm-release /><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
+        <rpm-release/><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
         <dans-provider-name>dans.knaw.nl</dans-provider-name>
         <rpm-replace-configuration>true</rpm-replace-configuration> <!-- Change to noreplace  if you want to support automatically upgrading config files in post install scripts -->
         <!-- General properties -->
@@ -344,21 +345,21 @@
                         <configuration>
                             <target>
                                 <java classname="nl.knaw.dans.build.GenerateRpmScripts" failonerror="true">
-                                    <arg value="${project.build.directory}/dans-build-resources/rpm-includes" />
-                                    <arg value="${project.build.directory}/dans-rpm-scripts" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-0-prepare.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-1-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-2-clean.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/0-pre-trans.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/2-post-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/3-pre-remove.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/4-post-remove.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/5-post-trans.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/6-verify.sh" />
+                                    <arg value="${project.build.directory}/dans-build-resources/rpm-includes"/>
+                                    <arg value="${project.build.directory}/dans-rpm-scripts"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-0-prepare.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-1-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-2-clean.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/0-pre-trans.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/2-post-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/3-pre-remove.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/4-post-remove.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/5-post-trans.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/6-verify.sh"/>
                                     <classpath>
                                         <!-- Somehow using project.build.directory here does not work -->
-                                        <pathelement location="target/dans-build-resources" />
+                                        <pathelement location="target/dans-build-resources"/>
                                     </classpath>
                                 </java>
                             </target>
@@ -472,7 +473,9 @@
                     <executions>
                         <execution>
                             <phase>process-sources</phase>
-                            <goals><goal>check</goal></goals>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>
@@ -514,88 +517,47 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>scala-maven-plugin</artifactId>
-                    <version>${scala-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>testCompile</goal>
-                                <goal>doc-jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <!-- Default configuration for all reports -->
                     <configuration>
-                        <scalaCompatVersion>${scala.binary.version}</scalaCompatVersion>
-                        <scalaVersion>${scala.version}</scalaVersion>
-                        <args>
-                            <arg>-target:jvm-1.8</arg>
-                            <arg>-deprecation</arg>
-                            <arg>-feature</arg>
-                        </args>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.scalatest</groupId>
-                    <artifactId>scalatest-maven-plugin</artifactId>
-                    <version>${scalatest-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>test</id>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                        <junitxml>.</junitxml>
-                        <filereports>WDF TestSuite.txt</filereports>
-                    </configuration>
-                </plugin>
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-javadoc-plugin</artifactId>
-	                <version>${maven-javadoc-plugin.version}</version>
-	                <!-- Default configuration for all reports -->
-	                <configuration>
-	                    <encoding>UTF-8</encoding>
-	                    <linksource>true</linksource>
-	                    <quiet>true</quiet>
-	                    <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
+                        <encoding>UTF-8</encoding>
+                        <linksource>true</linksource>
+                        <quiet>true</quiet>
+                        <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
 	                                    <code>build: yworks-uml-doclet ${maven.build.timestamp}</code>
 	                                    ]]></bottom>
-	                    <overview>src/main/java/overview.html</overview>
-	                    <doclet>ydoc.doclets.YStandard</doclet>
-	                    <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
-	                    <additionalparam>-umlautogen</additionalparam>
-	                    <additionalJOptions>
-	                        <additionalJOption>-J-Xmx1g</additionalJOption>
-	                        <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
-	                    </additionalJOptions>
-	                </configuration>
-	                <executions>
-	                    <execution>
-	                        <id>attach-javadoc</id>
-	                        <phase>verify</phase>
-	                        <goals>
-	                            <goal>jar</goal>
-	                        </goals>
-	                    </execution>
-	                    <execution>
-	                        <id>aggregate</id>
-	                        <goals>
-	                            <goal>aggregate</goal>
-	                        </goals>
-	                        <phase>site</phase>
-	                        <configuration>
-	                            <!-- Specific configuration for the aggregate report -->
-	                            <stylesheetfile>stylesheet.css</stylesheetfile>
-	                        </configuration>
-	                    </execution>
-	                </executions>
-	            </plugin>        
+                        <overview>src/main/java/overview.html</overview>
+                        <doclet>ydoc.doclets.YStandard</doclet>
+                        <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
+                        <additionalparam>-umlautogen</additionalparam>
+                        <additionalJOptions>
+                            <additionalJOption>-J-Xmx1g</additionalJOption>
+                            <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
+                        </additionalJOptions>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadoc</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate</goal>
+                            </goals>
+                            <phase>site</phase>
+                            <configuration>
+                                <!-- Specific configuration for the aggregate report -->
+                                <stylesheetfile>stylesheet.css</stylesheetfile>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
@@ -847,7 +809,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -866,7 +828,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
