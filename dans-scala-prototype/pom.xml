@@ -62,6 +62,11 @@
                 <artifactId>scalatra-scalate_2.12</artifactId>
                 <version>${scalatra.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.scalatra</groupId>
+                <artifactId>scalatra-auth_2.12</artifactId>
+                <version>${scalatra.version}</version>
+            </dependency>
 
             <!-- utilities -->
             <dependency>
@@ -117,6 +122,12 @@
                 <groupId>org.scalacheck</groupId>
                 <artifactId>scalacheck_2.12</artifactId>
                 <version>${scalacheck.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.scalatra</groupId>
+                <artifactId>scalatra-scalatest_2.12</artifactId>
+                <version>${scalatra.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
