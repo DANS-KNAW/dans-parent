@@ -79,7 +79,6 @@
         <hibernate.version>4.3.11.Final</hibernate.version>
         <sqlite.version>3.21.0</sqlite.version>
         <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
-        <solr-solrj.version>6.6.0</solr-solrj.version>
     </properties>
     <prerequisites>
         <maven>3.0.3</maven>
@@ -280,11 +279,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-dbcp2</artifactId>
                 <version>${commons-dbcp2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.solr</groupId>
-                <artifactId>solr-solrj</artifactId>
-                <version>${solr-solrj.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
