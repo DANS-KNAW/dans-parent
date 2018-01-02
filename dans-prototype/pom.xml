@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.knaw.dans.shared</groupId>
     <artifactId>dans-prototype</artifactId>
     <name>DANS Project Protoype</name>
-    <version>1.62</version>
+    <version>1.63-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
         <main-class>NoMainClass</main-class>
-        <rpm-release /><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
+        <rpm-release/><!-- Only declared here, override on the command line if you need a custom release for the RPM -->
         <dans-provider-name>dans.knaw.nl</dans-provider-name>
         <rpm-replace-configuration>true</rpm-replace-configuration> <!-- Change to noreplace  if you want to support automatically upgrading config files in post install scripts -->
         <!-- General properties -->
@@ -53,7 +54,7 @@
 
         <!-- Dependency versions -->
         <java.version>1.6</java.version>
-        <logback.version>1.1.1</logback.version>
+        <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.6</slf4j.version>
         <spring.version>4.0.2.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
@@ -67,35 +68,17 @@
         <commons-configuration.version>1.10</commons-configuration.version>
         <commons-csv.version>1.1</commons-csv.version>
         <commons-daemon.version>1.0.15</commons-daemon.version>
-        <dans-scala-lib.version>1.2</dans-scala-lib.version>
-        <scala.version>2.11.7</scala.version>
-        <scala.binary.version>2.11</scala.binary.version>
-        <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
-        <scallop.version>2.0.5</scallop.version>
-        <scalarx.version>0.26.0</scalarx.version>
-        <scala-xml.version>1.0.5</scala-xml.version>
-        <scalaj.version>1.1.4</scalaj.version>
-        <scala-arm.version>2.0-RC1</scala-arm.version>
-        <scala-test.version>2.2.1</scala-test.version>
-        <scala-logging.version>3.4.0</scala-logging.version>
-        <sourcecode.version>0.1.1</sourcecode.version>
-        <scalatest-maven-plugin.version>1.0</scalatest-maven-plugin.version>
-        <scalamock.version>3.2.1</scalamock.version>
-        <scalatra.version>2.3.0</scalatra.version>
-        <scalacheck.version>1.12.2</scalacheck.version>
         <joda-time.version>2.7</joda-time.version>
         <joda-convert.version>1.6</joda-convert.version>
         <yourmediashelf.version>0.7</yourmediashelf.version>
-        <bagit.version>4.11.0</bagit.version>
+        <bagit.version>5.0.3</bagit.version>
         <zip4j.version>1.3.2</zip4j.version>
         <jgit.version>4.1.0.201509280440-r</jgit.version>
         <config.version>1.2.1</config.version>
         <postgresql.version>9.4-1205-jdbc42</postgresql.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
-        <hazelcast.version>3.7.1</hazelcast.version>
-        <hazelcast.scala.version>3.6.1</hazelcast.scala.version>
-        <json4s.version>3.4.0</json4s.version>
-        <sqlite.version>3.19.3</sqlite.version>
+        <sqlite.version>3.21.0</sqlite.version>
+        <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
     </properties>
     <prerequisites>
         <maven>3.0.3</maven>
@@ -105,6 +88,11 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
@@ -121,22 +109,11 @@
                 <groupId>gov.loc</groupId>
                 <artifactId>bagit</artifactId>
                 <version>${bagit.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-configuration</groupId>
                 <artifactId>commons-configuration</artifactId>
                 <version>${commons-configuration.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scalaj</groupId>
-                <artifactId>scalaj-http_2.11</artifactId>
-                <version>${scalaj.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
@@ -237,72 +214,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-library</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.rogach</groupId>
-                <artifactId>scallop_2.11</artifactId>
-                <version>${scallop.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.reactivex</groupId>
-                <artifactId>rxscala_2.11</artifactId>
-                <version>${scalarx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scala-lang.modules</groupId>
-                <artifactId>scala-xml_2.11</artifactId>
-                <version>${scala-xml.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jsuereth</groupId>
-                <artifactId>scala-arm_2.11</artifactId>
-                <version>${scala-arm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest_2.11</artifactId>
-                <version>${scala-test.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.scalamock</groupId>
-                <artifactId>scalamock-scalatest-support_2.11</artifactId>
-                <version>${scalamock.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.scalatra</groupId>
-                <artifactId>scalatra_2.11</artifactId>
-                <version>${scalatra.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scalatra</groupId>
-                <artifactId>scalatra-scalate_2.11</artifactId>
-                <version>${scalatra.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scalacheck</groupId>
-                <artifactId>scalacheck_2.11</artifactId>
-                <version>${scalacheck.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
                 <version>${config.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.typesafe.scala-logging</groupId>
-                <artifactId>scala-logging_2.11</artifactId>
-                <version>${scala-logging.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lihaoyi</groupId>
-                <artifactId>sourcecode_2.11</artifactId>
-                <version>${sourcecode.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.yourmediashelf.fedora.client</groupId>
@@ -357,46 +271,14 @@
                 <version>${commons-daemon.version}</version>
             </dependency>
             <dependency>
-                <groupId>nl.knaw.dans.lib</groupId>
-                <artifactId>dans-scala-lib</artifactId>
-                <version>${dans-scala-lib.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast</artifactId>
-                <version>${hazelcast.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast</artifactId>
-                <version>${hazelcast.version}</version>
-                <classifier>tests</classifier>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast-client</artifactId>
-                <version>${hazelcast.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast-scala_2.11</artifactId>
-                <version>${hazelcast.scala.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.json4s</groupId>
-                <artifactId>json4s-native_2.11</artifactId>
-                <version>${json4s.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.json4s</groupId>
-                <artifactId>json4s-ext_2.11</artifactId>
-                <version>${json4s.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.xerial</groupId>
                 <artifactId>sqlite-jdbc</artifactId>
                 <version>${sqlite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${commons-dbcp2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -473,21 +355,21 @@
                         <configuration>
                             <target>
                                 <java classname="nl.knaw.dans.build.GenerateRpmScripts" failonerror="true">
-                                    <arg value="${project.build.directory}/dans-build-resources/rpm-includes" />
-                                    <arg value="${project.build.directory}/dans-rpm-scripts" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-0-prepare.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-1-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/build-2-clean.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/0-pre-trans.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/2-post-install.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/3-pre-remove.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/4-post-remove.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/5-post-trans.sh" />
-                                    <arg value="${project.basedir}/src/main/rpm/6-verify.sh" />
+                                    <arg value="${project.build.directory}/dans-build-resources/rpm-includes"/>
+                                    <arg value="${project.build.directory}/dans-rpm-scripts"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-0-prepare.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-1-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/build-2-clean.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/0-pre-trans.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/1-pre-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/2-post-install.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/3-pre-remove.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/4-post-remove.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/5-post-trans.sh"/>
+                                    <arg value="${project.basedir}/src/main/rpm/6-verify.sh"/>
                                     <classpath>
                                         <!-- Somehow using project.build.directory here does not work -->
-                                        <pathelement location="target/dans-build-resources" />
+                                        <pathelement location="target/dans-build-resources"/>
                                     </classpath>
                                 </java>
                             </target>
@@ -601,7 +483,9 @@
                     <executions>
                         <execution>
                             <phase>process-sources</phase>
-                            <goals><goal>check</goal></goals>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>
@@ -643,88 +527,47 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>scala-maven-plugin</artifactId>
-                    <version>${scala-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                                <goal>testCompile</goal>
-                                <goal>doc-jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <!-- Default configuration for all reports -->
                     <configuration>
-                        <scalaCompatVersion>${scala.binary.version}</scalaCompatVersion>
-                        <scalaVersion>${scala.version}</scalaVersion>
-                        <args>
-                            <arg>-target:jvm-1.8</arg>
-                            <arg>-deprecation</arg>
-                            <arg>-feature</arg>
-                        </args>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.scalatest</groupId>
-                    <artifactId>scalatest-maven-plugin</artifactId>
-                    <version>${scalatest-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>test</id>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                        <junitxml>.</junitxml>
-                        <filereports>WDF TestSuite.txt</filereports>
-                    </configuration>
-                </plugin>
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-javadoc-plugin</artifactId>
-	                <version>${maven-javadoc-plugin.version}</version>
-	                <!-- Default configuration for all reports -->
-	                <configuration>
-	                    <encoding>UTF-8</encoding>
-	                    <linksource>true</linksource>
-	                    <quiet>true</quiet>
-	                    <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
+                        <encoding>UTF-8</encoding>
+                        <linksource>true</linksource>
+                        <quiet>true</quiet>
+                        <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
 	                                    <code>build: yworks-uml-doclet ${maven.build.timestamp}</code>
 	                                    ]]></bottom>
-	                    <overview>src/main/java/overview.html</overview>
-	                    <doclet>ydoc.doclets.YStandard</doclet>
-	                    <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
-	                    <additionalparam>-umlautogen</additionalparam>
-	                    <additionalJOptions>
-	                        <additionalJOption>-J-Xmx1g</additionalJOption>
-	                        <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
-	                    </additionalJOptions>
-	                </configuration>
-	                <executions>
-	                    <execution>
-	                        <id>attach-javadoc</id>
-	                        <phase>verify</phase>
-	                        <goals>
-	                            <goal>jar</goal>
-	                        </goals>
-	                    </execution>
-	                    <execution>
-	                        <id>aggregate</id>
-	                        <goals>
-	                            <goal>aggregate</goal>
-	                        </goals>
-	                        <phase>site</phase>
-	                        <configuration>
-	                            <!-- Specific configuration for the aggregate report -->
-	                            <stylesheetfile>stylesheet.css</stylesheetfile>
-	                        </configuration>
-	                    </execution>
-	                </executions>
-	            </plugin>        
+                        <overview>src/main/java/overview.html</overview>
+                        <doclet>ydoc.doclets.YStandard</doclet>
+                        <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
+                        <additionalparam>-umlautogen</additionalparam>
+                        <additionalJOptions>
+                            <additionalJOption>-J-Xmx1g</additionalJOption>
+                            <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
+                        </additionalJOptions>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadoc</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate</goal>
+                            </goals>
+                            <phase>site</phase>
+                            <configuration>
+                                <!-- Specific configuration for the aggregate report -->
+                                <stylesheetfile>stylesheet.css</stylesheetfile>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
@@ -976,7 +819,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -995,7 +838,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
