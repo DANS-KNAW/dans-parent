@@ -29,7 +29,7 @@
         <scalatra.version>2.6.2</scalatra.version>
         <scalacheck.version>1.13.5</scalacheck.version>
         <json4s.version>3.5.3</json4s.version>
-        <dans-scala-lib.version>1.x-SNAPSHOT</dans-scala-lib.version>
+        <dans-scala-lib.version>1.4.0</dans-scala-lib.version>
     </properties>
 
     <dependencies>
