@@ -6,7 +6,7 @@
     <parent>
         <groupId>nl.knaw.dans.shared</groupId>
         <artifactId>dans-prototype</artifactId>
-        <version>1.63</version>
+        <version>1.64</version>
         <relativePath>../dans-prototype</relativePath>
     </parent>
 
@@ -15,21 +15,21 @@
     <packaging>pom</packaging>
 
     <properties>
-        <scala.version>2.11.7</scala.version>
-        <scala.binary.version>2.11</scala.binary.version>
-        <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
+        <scala.version>2.12.3</scala.version>
+        <scala.binary.version>2.12</scala.binary.version>
+        <scala-maven-plugin.version>3.3.1</scala-maven-plugin.version>
         <scalatest-maven-plugin.version>1.0</scalatest-maven-plugin.version>
-        <scallop.version>2.0.5</scallop.version>
-        <scalarx.version>0.26.0</scalarx.version>
-        <scala-xml.version>1.0.5</scala-xml.version>
-        <scalaj.version>1.1.4</scalaj.version>
-        <scala-arm.version>2.0-RC1</scala-arm.version>
-        <scala-test.version>2.2.1</scala-test.version>
-        <scalamock.version>3.2.1</scalamock.version>
-        <scalatra.version>2.3.0</scalatra.version>
-        <scalacheck.version>1.12.2</scalacheck.version>
-        <json4s.version>3.4.0</json4s.version>
-        <dans-scala-lib.version>1.2</dans-scala-lib.version>
+        <scallop.version>3.1.1</scallop.version>
+        <scalarx.version>0.26.5</scalarx.version>
+        <scala-xml.version>1.0.6</scala-xml.version>
+        <scalaj.version>2.3.0</scalaj.version>
+        <scala-arm.version>2.0</scala-arm.version>
+        <scala-test.version>3.0.4</scala-test.version>
+        <scalamock.version>3.6.0</scalamock.version>
+        <scalatra.version>2.6.2</scalatra.version>
+        <scalacheck.version>1.13.5</scalacheck.version>
+        <json4s.version>3.5.3</json4s.version>
+        <dans-scala-lib.version>1.4.0</dans-scala-lib.version>
     </properties>
 
     <dependencies>
@@ -49,84 +49,84 @@
             <!-- service/web -->
             <dependency>
                 <groupId>org.scalaj</groupId>
-                <artifactId>scalaj-http_2.11</artifactId>
+                <artifactId>scalaj-http_2.12</artifactId>
                 <version>${scalaj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scalatra</groupId>
-                <artifactId>scalatra_2.11</artifactId>
+                <artifactId>scalatra_2.12</artifactId>
                 <version>${scalatra.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scalatra</groupId>
-                <artifactId>scalatra-scalate_2.11</artifactId>
+                <artifactId>scalatra-scalate_2.12</artifactId>
                 <version>${scalatra.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scalatra</groupId>
-                <artifactId>scalatra-auth_2.11</artifactId>
+                <artifactId>scalatra-auth_2.12</artifactId>
                 <version>${scalatra.version}</version>
             </dependency>
 
             <!-- utilities -->
             <dependency>
                 <groupId>org.scala-lang.modules</groupId>
-                <artifactId>scala-xml_2.11</artifactId>
+                <artifactId>scala-xml_2.12</artifactId>
                 <version>${scala-xml.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.json4s</groupId>
-                <artifactId>json4s-native_2.11</artifactId>
+                <artifactId>json4s-native_2.12</artifactId>
                 <version>${json4s.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.json4s</groupId>
-                <artifactId>json4s-ext_2.11</artifactId>
+                <artifactId>json4s-ext_2.12</artifactId>
                 <version>${json4s.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.rogach</groupId>
-                <artifactId>scallop_2.11</artifactId>
+                <artifactId>scallop_2.12</artifactId>
                 <version>${scallop.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.reactivex</groupId>
-                <artifactId>rxscala_2.11</artifactId>
+                <artifactId>rxscala_2.12</artifactId>
                 <version>${scalarx.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.jsuereth</groupId>
-                <artifactId>scala-arm_2.11</artifactId>
+                <artifactId>scala-arm_2.12</artifactId>
                 <version>${scala-arm.version}</version>
             </dependency>
             <dependency>
                 <groupId>nl.knaw.dans.lib</groupId>
-                <artifactId>dans-scala-lib</artifactId>
+                <artifactId>dans-scala-lib_2.12</artifactId>
                 <version>${dans-scala-lib.version}</version>
             </dependency>
 
             <!-- testing -->
             <dependency>
                 <groupId>org.scalatest</groupId>
-                <artifactId>scalatest_2.11</artifactId>
+                <artifactId>scalatest_2.12</artifactId>
                 <version>${scala-test.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.scalamock</groupId>
-                <artifactId>scalamock-scalatest-support_2.11</artifactId>
+                <artifactId>scalamock-scalatest-support_2.12</artifactId>
                 <version>${scalamock.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.scalacheck</groupId>
-                <artifactId>scalacheck_2.11</artifactId>
+                <artifactId>scalacheck_2.12</artifactId>
                 <version>${scalacheck.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.scalatra</groupId>
-                <artifactId>scalatra-scalatest_2.11</artifactId>
+                <artifactId>scalatra-scalatest_2.12</artifactId>
                 <version>${scalatra.version}</version>
                 <scope>test</scope>
             </dependency>
